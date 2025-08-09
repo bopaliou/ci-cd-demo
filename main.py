@@ -1,1 +1,5 @@
-print("Hello CI/CD World")
+def greet():
+    return "Hello CI/CD World"
+
+if __name__ == "__main__":
+    print(greet())
