@@ -1,36 +1,23 @@
 name: CI/CD Pipeline
 
 on:
-    push:
-        branches: [main]
+  push:
+    branches: [main]
 
 jobs:
-    buld:
-        runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v4
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
 
-            - name: Build Docker Image
-              run: docker build -t ci-cd-demo .
-            
-            - name: Run tests inside Docker
-              run: docker run ci-cd-demo pytest
+    - name: Build Docker Image
+      run: docker build -t ci-cd-demo .
 
-            - name: Setup Python
-              uses: actions/setup-python@v4
-              with:
-                python-version : '3.12'
+    - name: Run tests inside Docker
+      run: docker run ci-cd-demo pytest
 
-            - name: Install Dependencies
-              run: |
-                python -m pip install --upgrade pip
-                pip install Flask pytest
-
-            - name: Run Script
-              run:
-                python main.py
-
-            - name: Run tests
-              run: pytest
+    # Optionnel : Exécuter l'app dans Docker (pas toujours nécessaire dans CI)
+    # - name: Run app inside Docker
+    #   run: docker run -d -p 5000:5000 ci-cd-demo
